@@ -7,6 +7,11 @@
 
 ## Execução do projeto
 
+### Via Docker
+```shell
+docker run -p 8080:8080 -it algaworks/algacalendar-api
+```
+
 ### Via Jar
 Na pasta raiz do projeto, execute:
 ```shell
