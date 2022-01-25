@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -41,8 +41,7 @@ public class ReminderController {
 	@GetMapping("{reminderId}")
 	public Reminder getOne(@PathVariable Long reminderId) {
 		return reminders.findById(reminderId)
-				.orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"Não foi possível encontrar esse lembrete."));
+				.orElseThrow(()-> new EntityNotFoundException("Não foi possível encontrar esse lembrete."));
 	}
 
 	@PutMapping("{reminderId}")
