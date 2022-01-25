@@ -45,13 +45,12 @@ public class ReminderController {
 	}
 
 	@PutMapping("{reminderId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@RequestBody @Valid ReminderInput input, @PathVariable Long reminderId) {
+	public Reminder update(@RequestBody @Valid ReminderInput input, @PathVariable Long reminderId) {
 		var reminder = this.getOne(reminderId);
 		reminder.setTitle(input.getTitle());
 		reminder.setDescription(input.getDescription());
 		reminder.setDate(input.getDate());
-		reminders.save(reminder);
+		return reminders.save(reminder);
 	}
 
 	@DeleteMapping("{reminderId}")
