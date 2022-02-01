@@ -1,5 +1,6 @@
 package com.algaworks.algacalendar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -21,15 +22,19 @@ public class Reminder {
 	private String description;
 	
 	private LocalDate date;
+	
+	@JsonIgnore
+	private Long tenantId;
 
 	public Reminder() {
 		
 	}
 
-	public Reminder(String title, String description, LocalDate date) {
+	public Reminder(String title, String description, LocalDate date, Long tenantId) {
 		this.title = title;
 		this.description = description;
 		this.date = date;
+		this.tenantId = tenantId;
 	}
 
 }

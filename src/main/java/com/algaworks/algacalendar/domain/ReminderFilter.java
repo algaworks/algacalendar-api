@@ -1,11 +1,15 @@
 package com.algaworks.algacalendar.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.YearMonth;
+
 @Data
+@AllArgsConstructor
 public class ReminderFilter {
 
-	private Integer year;
-	private Integer month;
+	private YearMonth yearMonth;
+	private Long tenantId;
 
 }

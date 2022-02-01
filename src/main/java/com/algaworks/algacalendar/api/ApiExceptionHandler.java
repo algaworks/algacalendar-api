@@ -230,7 +230,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
 		return handleNotFound(ex, request);
 	}
+	
+	@ExceptionHandler(UnauthorizedTenantHeaderException.class)
+	public ResponseEntity<?> handleAccessDenied(UnauthorizedTenantHeaderException ex, WebRequest request) {
 
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		ProblemType problemType = ProblemType.UNAUTHORIZED;
+		String detail = ex.getMessage();
+
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage("Você não possui permissão para executar essa operação.")
+				.build();
+
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+	}
+	
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<?> handleAccessDenied(AccessDeniedException ex, WebRequest request) {
 

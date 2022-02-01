@@ -18,18 +18,20 @@ public class ReminderSpecs {
 		return (root, query, builder) -> {
 			List<Predicate> predicates = new ArrayList<>();
 
-			if (filter.getYear() != null) {
-				Expression<LocalDate> expression = builder.function("FORMATDATETIME", 
-						LocalDate.class , root.get("date"), builder.literal("yyyy"));
+			if (filter.getYearMonth() != null) {
+				Expression<Integer> year = builder.function("year",
+						Integer.class , root.get("date"));
 
-				predicates.add(builder.equal(expression, filter.getYear()));
+				predicates.add(builder.equal(year, filter.getYearMonth().getYear()));
+
+				Expression<Integer> expression = builder.function("month",
+						Integer.class , root.get("date"));
+
+				predicates.add(builder.equal(expression, filter.getYearMonth().getMonthValue()));
 			}
 
-			if (filter.getMonth() != null) {
-				Expression<LocalDate> expression = builder.function("FORMATDATETIME",
-						LocalDate.class , root.get("date"), builder.literal("MM"));
-
-				predicates.add(builder.equal(expression, filter.getMonth()));
+			if (filter.getTenantId() != null) {
+				predicates.add(builder.equal(root.get("tenantId"), filter.getTenantId()));
 			}
 
 			return builder.and(predicates.toArray(new Predicate[0]));

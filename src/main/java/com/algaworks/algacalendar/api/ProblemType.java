@@ -8,6 +8,7 @@ import java.util.Optional;
 public enum ProblemType {
 
 	INVALID_DATA("/invalid-data", "Dados inválidos", HttpStatus.BAD_REQUEST),
+	UNAUTHORIZED("/unauthorized", "Não autenticado", HttpStatus.UNAUTHORIZED),
 	FORBIDDEN("/forbidden", "Acesso negado", HttpStatus.FORBIDDEN),
 	SYSTEM_ERROR("/system-error", "Erro de sistema", HttpStatus.INTERNAL_SERVER_ERROR),
 	INVALID_PARAMETER("/invalid-parameter", "Parâmetro inválido", HttpStatus.BAD_REQUEST),

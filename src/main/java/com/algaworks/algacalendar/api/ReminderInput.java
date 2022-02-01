@@ -17,9 +17,10 @@ public class ReminderInput {
 	@NotNull
 	private LocalDate date;
 
-	public Reminder toReminder() {
+	public Reminder toReminder(Long tenantId) {
 		return new Reminder(this.title, 
 				this.description, 
-				this.date);
+				this.date,
+				tenantId);
 	}
 }
