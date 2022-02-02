@@ -9,12 +9,28 @@ info:
     email: contato@algaworks.com
     name: AlgaWorks
     url: 'https://www.algaworks.com'
-
+    
 servers:
+  - description: Ambiente de produção
+    url: 'http://calendar.algaworks.com'
   - description: Ambiente local de desenvolvimento
     url: 'http://localhost:8080'
 
 paths:
+  /api-key:
+    get:
+      operationId: getKey
+      summary: Retorna token de acesso
+      tags:
+        - Token
+      security: [ ]
+      responses:
+        '200':
+          description: Token de acesso criado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
   /reminders/{reminderId}:
     parameters:
       - schema:
@@ -76,21 +92,13 @@ paths:
         - Reminders
       parameters:
         - schema:
-            type: integer
+            type: string
             format: int64
-            example: 2022
-          name: year
-          description: Ano
+            example: '2022-01'
+          name: yearMonth
+          description: Ano-Mês
           in: query
-          required: false
-        - schema:
-            type: integer
-            format: int64
-            example: 12
-          name: month
-          description: Mês
-          in: query
-          required: false
+          required: true
       responses:
         '200':
           description: OK
@@ -119,8 +127,17 @@ paths:
                 $ref: '#/components/schemas/Reminder'
         '400':
           $ref: '#/components/responses/BadRequest'
-
+          
+security:
+  - ApiKey: []
+    
 components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      name: X-Authorization
+      in: header
+      description: 'Token de autenticação.'
   responses:
     NotFound:
       description: Recurso não encontrado
@@ -176,6 +193,15 @@ components:
           type: string
           format: date
           example: '2022-01-01'
+    Token:
+      description: 'Token de acesso.'
+      type: object
+      required:
+        - apiKey
+      properties:
+        apiKey:
+          type: string
+          example: '5750bc15-e6c2-4d76-8b5b-07d62f1a76f1'
     ProblemObject:
       type: object
       required:
@@ -227,3 +253,5 @@ components:
 tags:
   - name: Reminders
     description: Lembretes
+  - name: Token
+    description: Token
