@@ -93,7 +93,6 @@ paths:
       parameters:
         - schema:
             type: string
-            format: int64
             example: '2022-01'
           name: yearMonth
           description: Ano-Mês
