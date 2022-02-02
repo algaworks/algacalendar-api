@@ -18,14 +18,14 @@ servers:
 
 paths:
   /api-key:
-    get:
-      operationId: getKey
-      summary: Retorna token de acesso
+    post:
+      operationId: createApiKey
+      summary: Gera token de acesso
       tags:
         - Token
       security: [ ]
       responses:
-        '200':
+        '201':
           description: Token de acesso criado.
           content:
             application/json:

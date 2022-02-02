@@ -1,6 +1,5 @@
 package com.algaworks.algacalendar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -17,12 +16,10 @@ public class Tenant {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;
 	
 	private String apiKey = UUID.randomUUID().toString();
 	
-	@JsonIgnore
 	@CreationTimestamp
 	private OffsetDateTime createdAt;
 	
